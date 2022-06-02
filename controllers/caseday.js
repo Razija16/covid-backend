@@ -1,0 +1,42 @@
+const db = require("../config/db");
+const CaseDayService = require("../services/caseday");
+const SymptomService = require("../services/symptom");
+const InterventionService = require("../services/intervention");
+
+const createcaseday = async (req, res) => {
+  try {
+    const CaseDay = await CaseDayService.createCaseDay(req.body);
+    const Symptoms = await SymptomService.insertSymptoms(CaseDay.id, req.body.symptoms);
+    const Intervention = await InterventionService.createIntervention(req.body, CaseDay.id);
+    const obj = {
+      CaseDay,
+      Symptoms,
+      Intervention
+    }
+    if(CaseDay.alert_type == 3){
+      obj.Intervention=Intervention
+    }
+    res.status(201).send(obj);
+  } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+  }
+}
+
+const caseday = async (req, res) => {
+  try {
+    const CaseDay = await CaseDayService.getCaseDay(req.params.id);
+    const Symptoms = await SymptomService.getSymptoms(req.params.id);
+    const obj = {
+      CaseDay,
+      Symptoms
+    }
+    res.status(201).send(obj);
+  } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+  }
+}
+
+module.exports = {
+  createcaseday,
+  caseday
+}
