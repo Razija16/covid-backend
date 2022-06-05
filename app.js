@@ -5,6 +5,8 @@ const authRouter = require('./routes/authentication.js');
 const profileRouter = require('./routes/profile');
 const interventionRouter = require('./routes/intervention');
 const casedayRouter = require('./routes/caseday');
+const adminRouter = require('./routes/admin');
+
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.use('/api', authRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/caseday', casedayRouter);
 app.use('/api/intervention', interventionRouter);
+app.use ('/api/admin', adminRouter);
 
 
 
