@@ -17,9 +17,27 @@ const team = async (req, res) => {
     res.status(500).send({ message: e.message }).end();
     }
 }
+const createteam = async (req, res) => {
+    try{
+        const CreateTeam = await TeamService.createTeam(req.body);
+        res.status(201).send(CreateTeam);
+    } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+    }
+}
 
+const addmember = async (req, res) => {
+    try{
+        const TeamMember = await TeamService.addMember(req.body);
+        res.status(201).send(TeamMember);
+    } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+    }
+}
 
 module.exports = {
     teams,
-    team
+    team,
+    createteam,
+    addmember
 }

@@ -29,6 +29,24 @@ class TeamService {
             throw err || 'Error getting team!';
         });
     }
+    static async createTeam(body){
+        return InterventionTeam.create({
+            alert_type: body.alert_type,
+            name: body.name
+        }).catch((err) => {
+            throw err || 'Error creating team!';
+        });
+    }
+    static async addMember(body){
+        return InterventionTeamMember.create({
+            first_name: body.first_name,
+            last_name: body.last_name,
+            interventionteamId: body.interventionteamId
+        }).catch((err) => {
+            throw err || 'Error getting member!';
+        });
+    }
+
 }
 
 module.exports = TeamService;
