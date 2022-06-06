@@ -5,46 +5,46 @@ CREATE TABLE `User` (
   `email` varchar(255),
   `password` varchar(255),
   `is_admin` boolean,
-  `is_super_admin` boolean,
-  `created_at` datetime
+  `createdAt` varchar(255)
 );
 
 CREATE TABLE `Case` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `created_at` datetime,
-  `closed_at` datetime,
+  `createdAt` varchar(255),
+  `closedAt` varchar(255),
   `active` boolean,
   `isolation_days` int,
-  `user_id` int
+  `userId` int
 );
 
 CREATE TABLE `CaseDay` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `created_at` datetime,
-  `case_id` int,
-  `alert_type` int
+  `createdAt` varchar(255),
+  `caseId` int,
+  `alert_type` int,
   `temperature` float
 );
 
 CREATE TABLE `PossibleSymptom` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `created_at` datetime,
   `name` varchar(255),
-  `description` text
+  `alert_type` int
 );
 
 CREATE TABLE `CaseDaySymptoms` (
-  `case_day_id` int,
-  `possible_symptom_id` int,
+  `casedayId` int,
+  `possiblesymptomId` int
 );
 
 CREATE TABLE `Intervention` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
+  `createdAt` varchar(255),
   `alert_type` int,
-  `intervention_team_id` int,
-  `user_id` int,
+  `interventionteamId` int,
+  `handled` boolean,
+  `userId` int,
   `report` text,
-  `case_day_symptoms_id` int
+  `casedayId` int
 );
 
 CREATE TABLE `InterventionTeam` (
@@ -57,21 +57,21 @@ CREATE TABLE `InterventionTeamMember` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `first_name` varchar(255),
   `last_name` varchar(255),
-  `intervention_team_id` int
+  `interventionteamId` int
 );
 
-ALTER TABLE `Case` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `Case` ADD FOREIGN KEY (`userId`) REFERENCES `User` (`id`);
 
-ALTER TABLE `CaseDay` ADD FOREIGN KEY (`case_id`) REFERENCES `Case` (`id`);
+ALTER TABLE `CaseDay` ADD FOREIGN KEY (`caseId`) REFERENCES `Case` (`id`);
 
-ALTER TABLE `CaseDaySymptoms` ADD FOREIGN KEY (`case_day_id`) REFERENCES `CaseDay` (`id`);
+ALTER TABLE `CaseDaySymptoms` ADD FOREIGN KEY (`casedayId`) REFERENCES `CaseDay` (`id`);
 
-ALTER TABLE `CaseDaySymptoms` ADD FOREIGN KEY (`possible_symptom_id`) REFERENCES `PossibleSymptom` (`id`);
+ALTER TABLE `CaseDaySymptoms` ADD FOREIGN KEY (`possiblesymptomId`) REFERENCES `PossibleSymptom` (`id`);
 
-ALTER TABLE `Intervention` ADD FOREIGN KEY (`intervention_team_id`) REFERENCES `InterventionTeam` (`id`);
+ALTER TABLE `Intervention` ADD FOREIGN KEY (`interventionteamId`) REFERENCES `InterventionTeam` (`id`);
 
-ALTER TABLE `Intervention` ADD FOREIGN KEY (`case_day_symptoms_id`) REFERENCES `CaseDaySymptoms` (`case_day_id`);
+ALTER TABLE `Intervention` ADD FOREIGN KEY (`casedayId`) REFERENCES `CaseDay` (`Id`);
 
-ALTER TABLE `Intervention` ADD FOREIGN KEY (`user_id`) REFERENCES `User` (`id`);
+ALTER TABLE `Intervention` ADD FOREIGN KEY (`userId`) REFERENCES `User` (`id`);
 
-ALTER TABLE `InterventionTeamMember` ADD FOREIGN KEY (`intervention_team_id`) REFERENCES `InterventionTeam` (`id`);
+ALTER TABLE `InterventionTeamMember` ADD FOREIGN KEY (`interventionteamId`) REFERENCES `InterventionTeam` (`id`);

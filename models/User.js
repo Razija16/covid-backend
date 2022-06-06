@@ -35,19 +35,12 @@ module.exports = (sequelize) =>
           type: Sequelize.BOOLEAN,
           defaultValue: false,
         },
-        is_super_admin: {
-          type: Sequelize.BOOLEAN,
-          defaultValue: false,
-        },
         createdAt: {
           type: Sequelize.STRING,
           defaultValue: Date.now()
-        },
-        updatedAt: {
-          type: Sequelize.STRING,
-          defaultValue: Date.now()
-        },
+        }
       }, {
-        tableName: 'User'
+        tableName: 'User',
+        updatedAt: false
       }
     )

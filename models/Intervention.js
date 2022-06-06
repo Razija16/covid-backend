@@ -21,7 +21,6 @@ sequelize.define('intervention',
       },
       interventionteamId: {
         type: Sequelize.INTEGER,
-        required: true,
         allowNull: true,
       },
       handled: {
@@ -48,4 +47,3 @@ sequelize.define('intervention',
       updatedAt: false
     }
   )
-  
