@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { profile } = require('../controllers/profile.js');
+const { profile,symptoms } = require('../controllers/profile.js');
 
 // router for profile
-
+router.get ('/forms', symptoms);
 router.get ('/:id', profile);
 
 
