@@ -14,8 +14,19 @@ class TeamService {
         });
     }
 
+    static async getTeamsForAssign(){
+        return InterventionTeam.findAll({
+            attributes: ['id','name','alert_type']
+        }).catch((err) => {
+            throw err || 'Error getting teams!';
+        });
+    }
+
     static async getOneTeam(id){
         return InterventionTeam.findOne({
+            where:{
+                id:id
+            },
             include: {
                 model: InterventionTeamMember,
                 required: false,
@@ -29,6 +40,7 @@ class TeamService {
             throw err || 'Error getting team!';
         });
     }
+
     static async createTeam(body){
         return InterventionTeam.create({
             alert_type: body.alert_type,
@@ -37,6 +49,7 @@ class TeamService {
             throw err || 'Error creating team!';
         });
     }
+
     static async addMember(body){
         return InterventionTeamMember.create({
             first_name: body.first_name,
@@ -47,6 +60,21 @@ class TeamService {
         });
     }
 
+    static async removeTeam(id){
+        return InterventionTeam.destroy({
+            where: { id: id }
+        }).catch((err) => {
+            throw err || 'Error deleting team!';
+        });
+    }
+
+    static async removeMember(id){
+        return InterventionTeamMember.destroy({
+            where: { id: id }
+        }).catch((err) => {
+            throw err || 'Error deleting member!';
+        });
+    }
 }
 
 module.exports = TeamService;
