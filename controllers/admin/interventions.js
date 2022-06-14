@@ -1,4 +1,4 @@
-const InterventionService = require("../../services/admin/interventions.js");
+const InterventionService = require("../../services/admin/interventions");
 
 const interventions = async(req, res) => {
     try{
@@ -9,6 +9,16 @@ const interventions = async(req, res) => {
     }
 }
 
+const intervention = async(req, res) => {
+    try{
+        const Intervention = await InterventionService.getIntervention(req.params.id, req.params.userId);
+        res.status(201).send(Intervention);
+    } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+    }
+}
+
 module.exports = {
-    interventions
+    interventions,
+    intervention,
 }

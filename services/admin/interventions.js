@@ -24,6 +24,28 @@ class InterventionService {
             });
         }
     }
+
+    static async getIntervention(id, userId){
+        return User.findOne({
+            where: { id: userId},
+            attributes: ['first_name', 'last_name'],
+            include: [
+                {
+                    model: Intervention,
+                    required: true,
+                    attributes: ['id','alert_type', 'createdAt', 'handled'],
+                    where: { id: id },
+                    include: [{
+                        model: InterventionTeam,
+                        required: false,
+                        attributes: ['name']
+                    }]
+                }
+            ]
+        }).catch((err) => {
+            throw err || 'Error getting intervention!';
+        });
+    }
 }
 
 module.exports = InterventionService;
