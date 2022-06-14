@@ -18,7 +18,27 @@ const intervention = async(req, res) => {
     }
 }
 
+const handleintervention = async(req, res) => {
+    try{
+        const HandleIntervention = await InterventionService.assignTeamReport(req.body.id, req.body.interventionteamId, req.body.report);
+        res.status(201).send(HandleIntervention);
+    } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+    }
+}
+
+const deleteintervention = async (req, res) => {
+    try{
+        const DeleteIntervention = await InterventionService.removeIntervention(req.params.id);
+        res.status(201).json({msg:"Intervention deleted"})
+    } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+    }
+}
+
 module.exports = {
     interventions,
     intervention,
+    handleintervention,
+    deleteintervention
 }
