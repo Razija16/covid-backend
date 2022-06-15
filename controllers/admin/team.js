@@ -50,12 +50,20 @@ const deleteteam = async (req, res) => {
         res.status(500).send({ message: e.message }).end();
     }
 }
-
+const assignteams = async (req, res) => {
+    try {
+        const AssignTeams = await TeamService.getTeamsForAssign();
+        res.status(201).send(AssignTeams);
+    } catch (e) {
+        res.status(500).send({ message: e.message }).end();
+    }
+}
 module.exports = {
     teams,
     team,
     createteam,
     addmember,
+    assignteams,
     deletemember,
     deleteteam
 }
