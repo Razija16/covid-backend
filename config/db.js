@@ -37,40 +37,40 @@ db.InterventionTeamMember = require(`../models/InterventionTeamMember.js`)(conne
 
 // Relations Case
 
-db.User.hasMany(db.Case);
-db.Case.belongsTo(db.User);
+db.User.hasMany(db.Case, { onDelete: 'CASCADE' });
+db.Case.belongsTo(db.User, { onDelete: 'CASCADE' });
 
 // Relations CaseDay
 
-db.Case.hasMany(db.CaseDay);
-db.CaseDay.belongsTo(db.Case);
+db.Case.hasMany(db.CaseDay, { onDelete: 'CASCADE' });
+db.CaseDay.belongsTo(db.Case, { onDelete: 'CASCADE' });
 
 // Relations CaseDaySymptoms
 
-db.CaseDay.hasMany(db.CaseDaySymptoms);
-db.CaseDaySymptoms.belongsTo(db.CaseDay);
+db.CaseDay.hasMany(db.CaseDaySymptoms, { onDelete: 'CASCADE' });
+db.CaseDaySymptoms.belongsTo(db.CaseDay, { onDelete: 'CASCADE' });
 
-db.PossibleSymptom.hasMany(db.CaseDaySymptoms);
-db.CaseDaySymptoms.belongsTo(db.PossibleSymptom);
+db.PossibleSymptom.hasMany(db.CaseDaySymptoms, { onDelete: 'CASCADE' });
+db.CaseDaySymptoms.belongsTo(db.PossibleSymptom, { onDelete: 'CASCADE' });
 
 // Relations Intervention
 
-db.InterventionTeam.hasMany(db.Intervention);
-db.Intervention.belongsTo(db.InterventionTeam);
+db.InterventionTeam.hasMany(db.Intervention, { onDelete: 'CASCADE' });
+db.Intervention.belongsTo(db.InterventionTeam, { onDelete: 'CASCADE' });
 
-db.InterventionTeam.hasMany(db.Intervention);
-db.Intervention.belongsTo(db.InterventionTeam);
+db.InterventionTeam.hasMany(db.Intervention, { onDelete: 'CASCADE' });
+db.Intervention.belongsTo(db.InterventionTeam, { onDelete: 'CASCADE' });
 
-db.User.hasMany(db.Intervention);
-db.Intervention.belongsTo(db.User);
+db.User.hasMany(db.Intervention, { onDelete: 'CASCADE' });
+db.Intervention.belongsTo(db.User, { onDelete: 'CASCADE' });
 
-db.CaseDay.hasMany(db.Intervention);
-db.Intervention.belongsTo(db.CaseDay);
+db.CaseDay.hasMany(db.Intervention, { onDelete: 'CASCADE' });
+db.Intervention.belongsTo(db.CaseDay, { onDelete: 'CASCADE' });
 
 // Relations InteventionTeamMember
 
-db.InterventionTeam.hasMany(db.InterventionTeamMember);
-db.InterventionTeamMember.belongsTo(db.InterventionTeam);
+db.InterventionTeam.hasMany(db.InterventionTeamMember, { onDelete: 'CASCADE' });
+db.InterventionTeamMember.belongsTo(db.InterventionTeam, { onDelete: 'CASCADE' });
 
 
 module.exports = db;
