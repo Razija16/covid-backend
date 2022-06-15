@@ -18,6 +18,44 @@ class UserService {
   }
 }
 
+static async getCreatedAt(userId) {
+  return Case.findOne({
+    attributes: ['createdAt'],
+    where : {
+      userId: userId
+    }
+  }).catch((err) => {
+    throw err || 'Error getting Updated date!';
+  });
+}
+
+static async getLastForm(userId) {
+  return Case.findOne({
+    attributes: ['lastFormFill'],
+    where : {
+      userId: userId
+    }
+  }).catch((err) => {
+    throw err || 'Error getting Form date!';
+  });
+}
+
+
+static async updateIsolation(userId, days){
+  days = 14 - days;
+
+  return Case.update({
+    isolation_days: days,
+  },
+  {
+    where: { userId:userId }
+  }
+  ).catch((err) => {
+    throw err || 'Error updating Isolation days!';
+  });
+}
+
+
 static async getIsolationDays(userId) {
     return Case.findOne({
       attributes : ['isolation_days'],
@@ -26,7 +64,7 @@ static async getIsolationDays(userId) {
         active : 1
       }
     }).catch((err) => {
-      throw err || 'Error getting casedays!';
+      throw err || 'Error getting Isolation days!';
     });
 }
 }

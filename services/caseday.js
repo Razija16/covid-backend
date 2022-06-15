@@ -51,6 +51,17 @@ class CaseDayService{
         });
     }
 
+    static async setLastFormFill(caseId, date){
+        return Case.update({
+            lastFormFill: date
+        },
+        { 
+            where: { id: caseId } 
+        }
+        ).catch((err) => {
+            throw err || 'Error updating date for last form filled!';
+        });
+    }
 }
 
 module.exports = CaseDayService

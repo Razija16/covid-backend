@@ -18,7 +18,7 @@ class InterventionService{
 
     static async getUserInterventions(userId){
         return Intervention.findAll({
-            attributes: ['id','createdAt','casedayId'],
+            attributes: ['id','createdAt','casedayId','handled'],
             where : { userId },
             include:{
                 model: User,
@@ -31,7 +31,7 @@ class InterventionService{
             include:
                 {
                     model: InterventionTeam,
-                    required: true,
+                    required: false,
                     attributes: ['name']
                 },
         
@@ -42,14 +42,14 @@ class InterventionService{
 
     static async getIntervention(id){
         return Intervention.findOne({
-            attributes: ['createdAt','alert_type','report'],
+            attributes: ['createdAt','alert_type','report','handled'],
             where: {
                 id
             },
             include:
                 {
                     model: InterventionTeam,
-                    required: true,
+                    required: false,
                     attributes: ['name']
                 },
             
