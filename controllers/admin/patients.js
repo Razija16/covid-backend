@@ -16,7 +16,16 @@ const patient = async (req, res) => {
         res.status(500).send({ message: e.message }).end();
     }
 }
+const deletepatient = async (req, res) => {
+    try{
+        const DeletePatient = await PatientService.deletePatient(req.params.id);
+        res.status(201).json({msg:"Patient deleted"})
+    } catch (e) {
+    res.status(500).send({ message: e.message }).end();
+    }
+}
 module.exports = {
     patients,
-    patient
+    patient,
+    deletepatient
 }

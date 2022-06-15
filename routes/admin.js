@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { patients, patient } = require("../controllers/admin/patients.js");
+const { patients, patient, deletepatient } = require("../controllers/admin/patients.js");
 const { teams, team, createteam, addmember, assignteams, deletemember, deleteteam } = require("../controllers/admin/team.js");
 const { interventions, intervention, handleintervention, deleteintervention } = require("../controllers/admin/interventions.js");
 
 router.get('/patients', patients);
 router.get('/patient/:id', patient);
+router.delete('/deletepatient/:id', deletepatient);
 
 router.get('/teams', teams);
 router.get('/team/:id', team);

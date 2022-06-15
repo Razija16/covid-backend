@@ -27,6 +27,13 @@ class PatientService {
             throw err || 'Error getting patient!';
         });
     }
+    static async deletePatient(id) {
+        return User.destroy({
+            where: { id: id }
+        }).catch((err) => {
+            throw err || 'Error deleting patient!';
+        });
+    }
 }
 
 module.exports = PatientService;
