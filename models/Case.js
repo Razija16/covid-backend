@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 // Case model
 
-module.exports = (sequelize) => 
+module.exports = (sequelize) =>
   sequelize.define('case',
     {
       id: {
@@ -15,9 +15,9 @@ module.exports = (sequelize) =>
         type: Sequelize.STRING,
         defaultValue: Date.now()
       },
-      closedAt: {
+      lastFormFill: {
         type: Sequelize.STRING,
-        defaultValue: Date.now()
+        defaultValue: null
       },
       active: {
         type: Sequelize.BOOLEAN,
@@ -35,7 +35,7 @@ module.exports = (sequelize) =>
     },
     {
       tableName: 'Case',
-      updatedAt: false
+      updatedAt: false,
+      closedAt: false
     }
   )
- 

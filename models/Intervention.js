@@ -47,3 +47,4 @@ sequelize.define('intervention',
       updatedAt: false
     }
   )
+  
