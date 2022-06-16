@@ -5,8 +5,8 @@ const { profile,symptoms } = require('../controllers/profile.js');
 
 // router for profile
 router.get ('/forms', symptoms);
-router.get ('/:id', profile);
 router.get ('/test', userData)
+router.get ('/:id', profile);
 
 
 module.exports = router;
