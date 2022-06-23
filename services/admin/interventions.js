@@ -1,39 +1,39 @@
 const req = require('express/lib/request');
 const { where } = require('sequelize');
-const Sequelize = require('sequelize');
+const Sequelize = require ('sequelize');
 const { Op } = Sequelize;
-const { Intervention, InterventionTeam, User } = require('../../config/db');
+const { Intervention, InterventionTeam, User} = require ('../../config/db');
 
 class InterventionService {
-
-    static async getInterventions(handled) {
+    
+    static async getInterventions(handled){
         if (handled == 1) {
             return Intervention.findAll({
-                where: { handled: true },
-                attributes: ['id', 'alert_type', 'userId']
+                where : { handled: true },
+                attributes: ['id', 'alert_type','userId']
             }).catch((err) => {
                 throw err || 'Error getting interventions!';
             });
         }
-        else if (handled == 0) {
+        else if (handled == 0){
             return Intervention.findAll({
-                where: { handled: false },
-                attributes: ['id', 'alert_type', 'userId']
+                where : { handled: false },
+                attributes: ['id', 'alert_type','userId']
             }).catch((err) => {
                 throw err || 'Error getting interventions!';
             });
         }
     }
 
-    static async getIntervention(id, userId) {
+    static async getIntervention(id, userId){
         return User.findOne({
-            where: { id: userId },
+            where: { id: userId},
             attributes: ['first_name', 'last_name'],
             include: [
                 {
                     model: Intervention,
                     required: true,
-                    attributes: ['id', 'alert_type', 'createdAt', 'handled'],
+                    attributes: ['id','alert_type', 'createdAt', 'handled'],
                     where: { id: id },
                     include: [{
                         model: InterventionTeam,
@@ -47,7 +47,7 @@ class InterventionService {
         });
     }
 
-    static async removeIntervention(id) {
+    static async removeIntervention(id){
         return Intervention.destroy({
             where: { id: id }
         }).catch((err) => {
@@ -55,17 +55,17 @@ class InterventionService {
         });
     }
 
-    static async assignTeamReport(id, teamId, report) {
+    static async assignTeamReport(id, teamId, report){
         return Intervention.update({
             interventionteamId: teamId,
             handled: true,
             report: report,
         },
-            {
-                where: {
-                    id: id
-                }
+        {
+            where : {
+                id:id
             }
+        }
         )
     }
 }

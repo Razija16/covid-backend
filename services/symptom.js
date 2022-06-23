@@ -41,6 +41,18 @@ class SymptomService {
             });
         })
     }
+
+    static async setSymptoms(array){
+        array.forEach((element) => {
+            return PossibleSymptom.create({
+                name: element.name,
+                alert_type: element.alert_type
+            }).catch((err) => {
+                throw err || 'Error setting symptom!';
+            });
+        })
+    }
+
 }
 
 module.exports = SymptomService;
